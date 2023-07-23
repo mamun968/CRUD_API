@@ -2,6 +2,7 @@ import 'package:crud_api_app/style/style.dart';
 import 'package:flutter/material.dart';
 
 import '../RestApi/RestClient.dart';
+import 'ProductGridViewScreen.dart';
 
 class ProductCreateScreen extends StatefulWidget {
   const ProductCreateScreen({super.key});
@@ -66,7 +67,9 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
         ),
         leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const ProductGridViewScreen();
+              }));
             },
             icon: const Icon(Icons.arrow_back, color: colorWhite)),
       ),

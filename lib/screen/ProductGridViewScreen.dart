@@ -89,46 +89,58 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
               onRefresh: () async {
                 await callData();
               },
-              child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                  ),
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: Column(children: [
-                        Expanded(
-                            child: Image.network(
-                          products[index]["Img"],
-                          fit: BoxFit.fill,
-                        )),
-                        Text(products[index]["ProductName"]),
-                        const SizedBox(height: 10),
-                        // ignore: prefer_interpolation_to_compose_strings
-                        Text("${"Price:" + products[index]["UnitPrice"]}Taka"),
-                        const SizedBox(height: 10),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 6,
+                      crossAxisSpacing: 6,
+                    ),
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              OutlinedButton(
-                                  onPressed: () {
-                                    GoToUpdate(context, products[index]);
-                                  },
-                                  child: const Icon(
-                                      CupertinoIcons.ellipsis_vertical_circle,
-                                      color: colorGreen)),
-                              OutlinedButton(
-                                  onPressed: () {
-                                    DeleteItem(products[index]["_id"]);
-                                  },
-                                  child: const Icon(CupertinoIcons.delete,
-                                      color: colorRed)),
-                            ])
-                      ]),
-                    );
-                  }),
+                              Expanded(
+                                  child: Image.network(
+                                products[index]["Img"],
+                                fit: BoxFit.fill,
+                                width: double.infinity,
+                              )),
+                              Text(products[index]["ProductName"]),
+                              const SizedBox(height: 5),
+                              // ignore: prefer_interpolation_to_compose_strings
+                              Text(
+                                  "${"Price:" + products[index]["UnitPrice"]}Taka"),
+                              const SizedBox(height: 10),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    OutlinedButton(
+                                        onPressed: () {
+                                          GoToUpdate(context, products[index]);
+                                        },
+                                        child: const Icon(
+                                            CupertinoIcons
+                                                .ellipsis_vertical_circle,
+                                            size: 12,
+                                            color: colorGreen)),
+                                    OutlinedButton(
+                                        onPressed: () {
+                                          DeleteItem(products[index]["_id"]);
+                                        },
+                                        child: const Icon(CupertinoIcons.delete,
+                                            size: 12, color: colorRed)),
+                                  ]),
+                              const SizedBox(height: 5),
+                            ]),
+                      );
+                    }),
+              ),
             ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {

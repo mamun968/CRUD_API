@@ -2,13 +2,13 @@ import 'package:crud_api_app/style/style.dart';
 import 'package:flutter/material.dart';
 
 import '../RestApi/RestClient.dart';
-
+import 'ProductGridViewScreen.dart';
 
 class ProductUpdateScreen extends StatefulWidget {
   final Map<String, dynamic> productItem;
-  
-  
+
   const ProductUpdateScreen(this.productItem);
+  
 
   @override
   State<ProductUpdateScreen> createState() => _ProductUpdateScreenState();
@@ -22,14 +22,17 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
     super.initState();
     setState(() {
       products.update("Img", (value) => widget.productItem["Img"]);
-      products.update("ProductCode", (value) => widget.productItem["ProductCode"]);
-      products.update("ProductName", (value) => widget.productItem["ProductName"]);
+      products.update(
+          "ProductCode", (value) => widget.productItem["ProductCode"]);
+      products.update(
+          "ProductName", (value) => widget.productItem["ProductName"]);
       products.update("Qty", (value) => widget.productItem["Qty"]);
-      products.update("TotalPrice", (value) => widget.productItem["TotalPrice"]);
+      products.update(
+          "TotalPrice", (value) => widget.productItem["TotalPrice"]);
       products.update("UnitPrice", (value) => widget.productItem["UnitPrice"]);
-
     });
   }
+
   void _submitForm() async {
     if (products["Img"]!.length == 0) {
       FailedToast("Image is required");
@@ -47,7 +50,7 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
       setState(() {
         isLoading = true;
       });
-      await UpdateProduct(products , widget.productItem["_id"]);
+      await UpdateProduct(products, widget.productItem["_id"]);
     }
     setState(() {
       isLoading = false;
@@ -71,11 +74,19 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
     setState(() {});
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colorDarkBlue,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const ProductGridViewScreen();
+              }));
+            },
+            icon: Icon(Icons.arrow_back, color: colorWhite)),
         centerTitle: true,
         backgroundColor: colorDarkBlue,
         title: const Text(
@@ -180,6 +191,7 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
                 )
               ],
             ),
+   
     );
   }
 }
